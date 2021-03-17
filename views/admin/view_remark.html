@@ -1,0 +1,102 @@
+<div class="am-cf am-padding am-padding-bottom-0">
+    <div class="am-fl am-cf">
+        <strong class="am-text-primary am-text-lg">留言管理</strong> /
+        <small>查看留言列表</small>
+    </div>
+</div>
+
+<hr>
+
+<div class="am-tabs am-margin" data-am-tabs>
+    <div class="am-tabs-bd">
+        <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+            <div class="am-g">
+                <div class="am-u-sm-12 am-u-md-6">
+                    <div class="am-btn-toolbar">
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button type="button" ng-click="refresh()" class="am-btn am-btn-default"><span
+                                    class="am-icon-refresh"></span> 刷新</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-12">
+                    <table class="am-table am-table-striped am-table-hover  table-main">
+                        <thead>
+                            <tr>
+                                <th class="table-check"><input type="checkbox" /></th>
+                                <th class="table-id">ID</th>
+                                <th class="table-title">用户名</th>
+                                <th class="table-title">标题</th>
+                                <th class="table-title">内容</th>
+                                <th class="table-date am-hide-sm-only">日期</th>
+                                <th class="table-set">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in remarkList">
+                                <td><input type="checkbox" /></td>
+                                <td>{{ x.id }}</td>
+                                <td>{{ x.source }}</td>
+                                <td>{{x.title}}</td>
+                                <td>{{x.body}}</td>
+                                <td>{{x.date}}</td>
+                                <td>
+                                    <div class="am-btn-toolbar">
+                                        <div class="am-btn-group am-btn-group-xs">
+                                            <button class="am-btn am-btn-default am-btn-xs am-text-danger"
+                                                ng-click="delete(x.id)"><span class="am-icon-trash-o"></span> 删除</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="am-cf">
+                        共 {{articleNum}}条记录
+                        <div class="am-fr">
+                            <ul class="am-pagination">
+                                <li class="am-disabled"><a href="">«</a></li>
+                                <li class="am-active"><a href="">1</a></li>
+                                <li><a href="">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script src="assets/js/jquery.min.js"></script> -->
+<script src="assets/js/amazeui.min.js"></script>
+<script type="text/javascript">
+
+
+    //设置提交成功的提示弹窗
+    var clearFlag = 0;
+    var count = 3;//设置3秒后自动消失
+    var autoClose = function () {
+        if (count > 0) {
+            $("#num").html(count + "秒后自动前往审核页面");
+            count--;
+        } else if (count <= 0) {
+            window.clearInterval(clearFlag);
+            $("#num").html("...");
+            //$("#my-popup").fadeOut("slow");
+            count = 3;
+            $("#my-popup").modal('close');
+        }
+    }
+
+    $('#my-popup').on('close.modal.amui', function () {
+        window.location.href = "#/view_news";
+    });
+    $('#articleForm').submit(function () {
+        //alert(decodeURIComponent($(this).serializeArray())); 
+        $('#my-popup').modal('open');
+        clearFlag = self.setInterval("autoClose()", 1000);//每过一秒调用一次autoClose方法
+        return false;
+    });
+
+</script>

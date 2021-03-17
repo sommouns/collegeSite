@@ -1,0 +1,1241 @@
+<!doctype html>
+<html class="no-js fixed-layout">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        <%= title %>|浙江师范大学行知学院工学院
+    </title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <style type="text/css">
+        .text-nowrap {
+            word-break: keep-all;
+            /* 不换行 */
+            white-space: nowrap;
+            /* 不换行 */
+            overflow: hidden;
+            /* 内容超出宽度时隐藏超出部分的内容 */
+            text-overflow: ellipsis;
+            /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+        }
+    </style>
+</head>
+
+<body ng-app='routingDemoApp' ng-controller='AppController'>
+    <!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <strong>浙江师范大学行知学院工学院</strong> <small>网站后台管理</small>
+        </div>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        <span class="am-icon-users"></span> 管理员<%= username %> <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+                        <li><a href="/logoutAdm"><span class="am-icon-power-off"></span> 退出</a></li>
+                    </ul>
+                </li>
+                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span
+                            class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="am-cf admin-main">
+        <!-- sidebar start -->
+        <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+            <div class="am-offcanvas-bar admin-offcanvas-bar">
+                <ul class="am-list admin-sidebar-list">
+                    <li><a href="#/"><span class="am-icon-home"></span> 首页</a></li>
+                    <li class="admin-parent">
+                        <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span
+                                class="am-icon-send"></span> 新闻动态 <span
+                                class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                        <ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav1">
+                            <li><a href="#/add_news"><span class="am-icon-send-o"></span> 新建文章</a></li>
+                            <li><a href="#/view_news"><span class="am-icon-th"></span> 查看文章
+                                    <span ng-hide="count == 0"
+                                        class="am-badge am-badge-secondary am-margin-right am-fr">{{ $root.count
+                                        }}</span>
+
+                                </a></li>
+                        </ul>
+                    </li>
+                    <li class="admin-parent">
+                        <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span
+                                class="am-icon-user"></span> 教师信息 <span
+                                class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                        <ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav2">
+                            <li><a href="#/add_e"><span class="am-icon-user-plus"></span> 新建</a></li>
+                            <li><a href="#/view_e"><span class="am-icon-users"></span> 查看</a></li>
+                        </ul>
+                    </li>
+                    <li class="admin-parent">
+                        <a class="am-cf" data-am-collapse="{target: '#collapse-nav3'}"><span
+                                class="am-icon-pencil-square"></span> 专业成果 <span
+                                class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                        <ul class="am-list am-collapse admin-sidebar-sub " id="collapse-nav3">
+                            <li><a href="#/add_r"><span class="am-icon-file-o"></span> 新建</a></li>
+                            <li><a href="#/view_r"><span class="am-icon-file-text-o"></span> 查看
+                                    <span ng-hide="count2 == 0"
+                                        class="am-badge am-badge-secondary am-margin-right am-fr">{{ $root.count2
+                                        }}</span>
+                                </a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#/view_remark"><span class="am-icon-pencil-square-o"></span> 留言管理</a></li>
+                    <li><a href="/logoutAdm"><span class="am-icon-sign-out"></span> 注销</a></li>
+                </ul>
+
+                <div class="am-panel am-panel-default admin-sidebar-panel">
+                    <div class="am-panel-bd">
+                        <p><span class="am-icon-bookmark"></span> 公告</p>
+                        <p>欢迎登陆工学院后台管理系统</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- sidebar end -->
+
+        <!-- content start -->
+        <div class="admin-content">
+            <div ng-view class="admin-content-body">
+
+            </div>
+
+            <footer class="admin-content-footer">
+                <hr>
+                <p class="am-padding-left">© 工学院</p>
+            </footer>
+        </div>
+        <!-- content end -->
+
+    </div>
+
+    <a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+        data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+    <!--提示框  -->
+
+    <div class="am-popup" id="my-popup-success" style="height:164px;width:500px;margin-left:-250px;margin-top:-82px;">
+        <div class="am-popup-inner" style="padding-top:58px">
+            <div class="am-popup-hd" style="height:58px;padding:5px">
+                <h4 class="am-popup-title"><span
+                        class="am-icon-md am-icon-btn am-success am-icon-check-circle"></span>&nbsp;文章已发送！</h4>
+            </div>
+            <div class="am-popup-bd am-text-center" style="height:60px" id="num1"></div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
+    <div class="am-popup" id="my-popup-success2" style="height:164px;width:500px;margin-left:-250px;margin-top:-82px;">
+        <div class="am-popup-inner" style="padding-top:58px">
+            <div class="am-popup-hd" style="height:58px;padding:5px">
+                <h4 class="am-popup-title"><span
+                        class="am-icon-md am-icon-btn am-success am-icon-check-circle"></span>&nbsp;文章删除成功！</h4>
+            </div>
+            <div class="am-popup-bd am-text-center" style="height:60px">点击“确定”返回操作界面</div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
+    <div class="am-popup" id="my-popup-success-r" style="height:164px;width:500px;margin-left:-250px;margin-top:-82px;">
+        <div class="am-popup-inner" style="padding-top:58px">
+            <div class="am-popup-hd" style="height:58px;padding:5px">
+                <h4 class="am-popup-title"><span
+                        class="am-icon-md am-icon-btn am-success am-icon-check-circle"></span>&nbsp;文章已发送！</h4>
+            </div>
+            <div class="am-popup-bd am-text-center" style="height:60px" id="num1-r"></div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
+    <div class="am-popup" id="my-popup-success2-r"
+        style="height:164px;width:500px;margin-left:-250px;margin-top:-82px;">
+        <div class="am-popup-inner" style="padding-top:58px">
+            <div class="am-popup-hd" style="height:58px;padding:5px">
+                <h4 class="am-popup-title"><span
+                        class="am-icon-md am-icon-btn am-success am-icon-check-circle"></span>&nbsp;文章删除成功！</h4>
+            </div>
+            <div class="am-popup-bd am-text-center" style="height:60px">点击“确定”返回操作界面</div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
+    <div class="am-popup" id="my-popup-fail" style="height:164px;width:500px;margin-left:-250px;margin-top:-82px;">
+        <div class="am-popup-inner" style="padding-top:58px">
+            <div class="am-popup-hd" style="height:58px;padding:5px">
+                <h4 class="am-popup-title"><span
+                        class="am-icon-md am-icon-btn am-danger am-icon-exclamation-circle "></span>&nbsp;提交失败</h4>
+            </div>
+            <div class="am-popup-bd am-text-center" style="height:60px" id="num2">错误描述：{{$root.err.code}}</div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn">确定</span>
+            </div>
+        </div>
+    </div>
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">文章发布提醒</div>
+            <div class="am-modal-bd">
+                您确定要将文章《{{$root.titleAlert}}》发布到栏目“{{$root.sortAlert}}”吗？
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm-delete">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">文章删除提醒</div>
+            <div class="am-modal-bd">
+                您确定要从数据库中删除这篇文章吗？删除后将不可恢复
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+            </div>
+        </div>
+    </div>
+    <!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="assets/js/jquery.min.js"></script>
+    <!--<![endif]-->
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/angular-route/1.3.13/angular-route.js"></script>
+    <script src="http://cdn.bootcss.com/angular-sanitize/1.5.8/angular-sanitize.min.js"></script>
+    <script>
+        Date.prototype.format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,                 //月份 
+                "d+": this.getDate(),                    //日 
+                "h+": this.getHours(),                   //小时 
+                "m+": this.getMinutes(),                 //分 
+                "s+": this.getSeconds(),                 //秒 
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+                "S": this.getMilliseconds()             //毫秒 
+            };
+            if (/(y+)/.test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            }
+            for (var k in o) {
+                if (new RegExp("(" + k + ")").test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                }
+            }
+            return fmt;
+        }       
+    </script>
+    <script>
+        //设置提交成功的提示弹窗
+        var clearNum = 0;
+        var counts = 3;//设置3秒后自动消失
+        var autoClose_s = function () {
+            if (counts > 0) {
+                $("#num1").html(counts + "秒后自动关闭");
+                counts--;
+            } else if (counts <= 0) {
+                window.clearInterval(clearNum);
+                $("#num1").html("...");
+                counts = 3;
+                $("#my-popup-success").modal('close');
+            }
+        }
+        var autoClose_s_r = function () {
+            if (counts > 0) {
+                $("#num1-r").html(counts + "秒后自动关闭");
+                counts--;
+            } else if (counts <= 0) {
+                window.clearInterval(clearNum);
+                $("#num1-r").html("...");
+                counts = 3;
+                $("#my-popup-success-r").modal('close');
+            }
+        }
+        $('#my-popup-success').on('close.modal.amui', function () {
+            window.location.href = "#/view_news";
+        });
+        $('#my-popup-success-r').on('close.modal.amui', function () {
+            window.location.href = "#/view_r";
+        });
+        angular.module('routingDemoApp', ['ngRoute', 'ngSanitize'])
+            .controller('AppController', function ($scope, $rootScope, myFactory) {
+                $rootScope.count = 0;
+                $rootScope.count2 = 0
+            })
+            .controller('NewsController', function ($scope, $rootScope, myFactory) {
+                $scope.sorts = {
+                    "头条热点": "头条热点",
+                    "学院政策": "学院政策",
+                    "学术论文": "学术论文",
+                    "学院竞赛": "学院竞赛",
+                    "公告栏": "公告栏"
+                };
+
+                $scope.getData = function () {
+                    $rootScope.count = $rootScope.count + 1;
+                    $scope.date = $("#date").val();
+                    var html = ue.getContent();
+                    //$scope.content = $("#contenCarrier").html();
+                    $scope.content = html;
+                    myFactory.setter($scope.title, $scope.source, $scope.date, $scope.sort, $scope.content);
+                    console.log("add news:it's:" + $scope.content);
+                }
+            })
+            .controller('ResAddController', function ($scope, $rootScope, myFactory)  //添加专业成果
+            {
+                $scope.sorts = {
+                    "网络安全": "网络安全",
+                    "计算机科学与技术": "计算机科学与技术",
+                    "机械工学": "机械工学",
+                    "电子通信工程": "电子通信工程",
+                    "自动化": "自动化",
+                };
+                $scope.getData = function () {
+                    $rootScope.count2 = $rootScope.count2 + 1;
+                    $scope.date = $("#date_r").val();
+                    var html = ue_r.getContent();
+                    //$scope.content = $("#contenCarrier").html();
+                    $scope.content = html;
+                    myFactory.setter_r($scope.title, $scope.source, $scope.date, $scope.sort, $scope.content);
+                    console.log("add research:it's:" + $scope.content);
+                }
+            })
+            .controller('EaddController', function ($scope, $rootScope, myFactory) {
+                $scope.getData = function () {
+                    $rootScope.count = $rootScope.count + 1;
+                    $scope.date = $("#date").val();
+                    var html = ue.getContent();
+                    //$scope.content = $("#contenCarrier").html();
+                    $scope.content = html;
+                    myFactory.setter($scope.title, $scope.source, $scope.date, $scope.sort, $scope.content);
+                    console.log("add news:it's:" + $scope.content);
+                }
+            })
+            .controller('NewsViewController', function ($scope, $rootScope, $http, myFactory) {
+                var getObj = myFactory.getter();
+                $rootScope.articles = getObj.articles;
+                $scope.articleNum = $rootScope.articles.length;
+                $scope.go = function (url) {
+                    console.log("url:" + url);
+                    //$location.path(url);
+                    window.location.href = url;
+                }
+                $rootScope.send = function (num) {
+                    var formData = $rootScope.articles[num];
+                    $rootScope.titleAlert = formData.title;
+                    $rootScope.sortAlert = formData.sort;
+                    $('#my-confirm').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            switch (this.relatedTarget.sort) {
+                                case '头条热点':
+                                    this.relatedTarget.sort = 'sort1'; break;
+                                case '学院政策':
+                                    this.relatedTarget.sort = 'sort2'; break;
+                                case '学术论文':
+                                    this.relatedTarget.sort = 'sort3'; break;
+                                case '学院竞赛':
+                                    this.relatedTarget.sort = 'sort4'; break;
+                                case '公告栏':
+                                    this.relatedTarget.sort = 'sort5'; break;
+                            }
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/admin_send_news',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $rootScope.articles.splice(num, 1);
+                                    $('#my-popup-success').modal('open');
+                                    clearNum = self.setInterval("autoClose_s()", 1000);
+                                    $rootScope.count = $rootScope.count - 1;
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+                }
+
+                $http.get("/getnews").success(function (response) {
+                    $scope.newsList = response;
+                    $scope.newsNum = $scope.newsList.length;
+                });
+                $scope.refresh = function () {
+                    $http.get("/getnews").success(function (response) {
+                        $scope.newsList = response;
+                        $scope.newsNum = $scope.newsList.length;
+                    });
+                }
+                $scope.delete = function (num) {
+                    var formData = { "id": num };
+                    $('#my-confirm-delete').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/dangerwaytodothis',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $('#my-popup-success2').modal('open');
+                                    $scope.refresh();
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+                }
+                $scope.changeStatus = function (num, id) {
+                    console.log("changeStatus:" + num);
+                    if (num == 'on') {
+                        var formData = { "id": id, "status": "off" };
+                        $http({
+                            method: 'POST',
+                            url: '/dangerwaytodothis2',
+                            data: JSON.stringify(formData),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        }).error(function (err) {
+                            alert("failed:" + err)
+                        }).success(function (data) {
+                            $scope.refresh();
+                        });
+                    } else {
+                        var formData = { "id": id, "status": "on" };
+                        $http({
+                            method: 'POST',
+                            url: '/dangerwaytodothis2',
+                            data: JSON.stringify(formData),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        }).error(function (err) {
+                            alert("failed:" + err)
+                        }).success(function (data) {
+                            $scope.refresh();
+                        });
+                    }
+                }
+            })
+            .controller('EViewController', function ($scope, $rootScope, $http) {
+                $scope.go = function (url) {
+                    console.log("url:" + url);
+                    //$location.path(url);
+                    window.location.href = url;
+                }
+                $rootScope.send = function (num) {
+                    var formData = $rootScope.articles[num];
+                    $rootScope.titleAlert = formData.title;
+                    $rootScope.sortAlert = formData.sort;
+                    $('#my-confirm').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            switch (this.relatedTarget.sort) {
+                                case '头条热点':
+                                    this.relatedTarget.sort = 'sort1'; break;
+                                case '学院政策':
+                                    this.relatedTarget.sort = 'sort2'; break;
+                                case '学术论文':
+                                    this.relatedTarget.sort = 'sort3'; break;
+                                case '学院竞赛':
+                                    this.relatedTarget.sort = 'sort4'; break;
+                            }
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/admin_send_news',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $rootScope.articles.splice(num, 1);
+                                    $('#my-popup-success').modal('open');
+                                    clearNum = self.setInterval("autoClose_s()", 1000);
+                                    $rootScope.count = $rootScope.count - 1;
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+                }
+
+                $http.get("/getexp").success(function (response) {
+                    $scope.expList = response;
+                    $scope.expNum = $scope.expList.length;
+                });
+                $scope.refresh = function () {
+                    $http.get("/getexp").success(function (response) {
+                        $scope.expList = response;
+                        $scope.expNum = $scope.expList.length;
+                    });
+                }
+                $scope.delete = function (num) {
+                    var formData = { "id": num };
+                    $('#my-confirm-delete').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/dangerwaytodothis_e',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $('#my-popup-success2').modal('open');
+                                    $scope.refresh();
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+                }
+                $scope.changeStatus = function (num, id) {
+                    console.log("changeStatus:" + num);
+                    if (num == 'on') {
+                        var formData = { "id": id, "status": "off" };
+                        $http({
+                            method: 'POST',
+                            url: '/dangerwaytodothis2_e',
+                            data: JSON.stringify(formData),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        }).error(function (err) {
+                            alert("failed:" + err)
+                        }).success(function (data) {
+                            $scope.refresh();
+                        });
+                    } else {
+                        var formData = { "id": id, "status": "on" };
+                        $http({
+                            method: 'POST',
+                            url: '/dangerwaytodothis2_e',
+                            data: JSON.stringify(formData),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        }).error(function (err) {
+                            alert("failed:" + err)
+                        }).success(function (data) {
+                            $scope.refresh();
+                        });
+                    }
+                }
+            })
+            .controller('ResViewController', function ($scope, $rootScope, $http, myFactory) {
+                var getObj = myFactory.getter_r();
+                $rootScope.articles_r = getObj.articles;
+                $scope.articleNum = $rootScope.articles_r.length;
+                $scope.go = function (url) {
+                    console.log("url:" + url);
+                    //$location.path(url);
+                    window.location.href = url;
+                }
+                $rootScope.sendres = function (num) {
+                    var formData = $rootScope.articles_r[num];
+                    $rootScope.titleAlert = formData.title;
+                    $rootScope.sortAlert = formData.sort;
+                    $('#my-confirm').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/admin_send_res',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $rootScope.articles_r.splice(num, 1);
+                                    $('#my-popup-success-r').modal('open');
+                                    clearNum = self.setInterval("autoClose_s_r()", 1000);
+                                    $rootScope.count2 = $rootScope.count2 - 1;
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+                }
+                $http.get("/getres").success(function (response) {
+                    $scope.newsList = response;
+                    $scope.newsNum = $scope.newsList.length;
+                });
+                $scope.refresh = function () {
+                    $http.get("/getres").success(function (response) {
+                        $scope.newsList = response;
+                        $scope.newsNum = $scope.newsList.length;
+                    });
+                }
+                $scope.delete = function (num) {
+                    var formData = { "id": num };
+                    $('#my-confirm-delete').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/dangerwaytodothis_r',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $('#my-popup-success2-r').modal('open');
+                                    $scope.refresh();
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+                }
+                $scope.changeStatus = function (num, id) {
+                    console.log("changeStatus:" + num);
+                    if (num == 'on') {
+                        var formData = { "id": id, "status": "off" };
+                        $http({
+                            method: 'POST',
+                            url: '/dangerwaytodothis2_r',
+                            data: JSON.stringify(formData),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        }).error(function (err) {
+                            alert("failed:" + err)
+                        }).success(function (data) {
+                            $scope.refresh();
+                        });
+                    } else {
+                        var formData = { "id": id, "status": "on" };
+                        $http({
+                            method: 'POST',
+                            url: '/dangerwaytodothis2_r',
+                            data: JSON.stringify(formData),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        }).error(function (err) {
+                            alert("failed:" + err)
+                        }).success(function (data) {
+                            $scope.refresh();
+                        });
+                    }
+                }
+            })
+            .controller('RemarkViewController', function ($scope, $rootScope, $http, myFactory) {
+                var getObj = myFactory.getter_r();
+                $rootScope.articles_r = getObj.articles;
+                $scope.articleNum = $rootScope.articles_r.length;
+                $scope.go = function (url) {
+                    console.log("url:" + url);
+                    //$location.path(url);
+                    window.location.href = url;
+                }
+                $rootScope.sendres = function (num) {
+                    var formData = $rootScope.articles_r[num];
+                    $rootScope.titleAlert = formData.title;
+                    $rootScope.sortAlert = formData.sort;
+                    $('#my-confirm').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/admin_send_res',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $rootScope.articles_r.splice(num, 1);
+                                    $('#my-popup-success-r').modal('open');
+                                    clearNum = self.setInterval("autoClose_s_r()", 1000);
+                                    $rootScope.count2 = $rootScope.count2 - 1;
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+                }
+                $http.get("/getRemarks").success(function (response) {
+                    $scope.remarkList = response;
+                    $scope.newsNum = $scope.remarkList.length;
+                });
+                $scope.refresh = function () {
+                    $http.get("/getRemarks").success(function (response) {
+                        $scope.remarkList = response;
+                        $scope.newsNum = $scope.remarkList .length;
+                    });
+                }
+                $scope.delete = function (num) {
+                    var formData = { "id": num };
+                    $('#my-confirm-delete').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/dangerwaytodothis_remark',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $('#my-popup-success2-r').modal('open');
+                                    $scope.refresh();
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+                            });
+                        }
+                    });
+                }
+                $scope.changeStatus = function (num, id) {
+                    console.log("changeStatus:" + num);
+                    if (num == 'on') {
+                        var formData = { "id": id, "status": "off" };
+                        $http({
+                            method: 'POST',
+                            url: '/dangerwaytodothis2_r',
+                            data: JSON.stringify(formData),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        }).error(function (err) {
+                            alert("failed:" + err)
+                        }).success(function (data) {
+                            $scope.refresh();
+                        });
+                    } else {
+                        var formData = { "id": id, "status": "on" };
+                        $http({
+                            method: 'POST',
+                            url: '/dangerwaytodothis2_r',
+                            data: JSON.stringify(formData),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                        }).error(function (err) {
+                            alert("failed:" + err)
+                        }).success(function (data) {
+                            $scope.refresh();
+                        });
+                    }
+                }
+            })
+            .controller('NewsDtlController', function ($scope, $routeParams, myFactory) {
+                var getObj = myFactory.getter();
+                var articles = getObj.articles;
+                $scope.essay = articles[$routeParams.id];
+                $scope.this_num = $routeParams.id
+            })
+            .controller('ResDtlController', function ($scope, $routeParams, myFactory) {
+                var getObj = myFactory.getter_r();
+                var articles = getObj.articles;
+                $scope.essay = articles[$routeParams.id];
+                $scope.this_num = $routeParams.id
+            })
+            .controller('NewsEditController', function ($scope, $rootScope, $http, $routeParams, myFactory) {
+                $scope.sorts2 = ["头条热点", "学院政策", "学术论文", "学院竞赛", "公告栏"];
+                var getObj = myFactory.getter();
+                var articles = getObj.articles;
+                $scope.essay = articles[$routeParams.id];
+                $scope.editNum = $routeParams.id;
+                $scope.sendEdit = function (num) {
+                    var formData = $scope.essay;
+                    $rootScope.titleAlert = formData.title;
+                    $rootScope.sortAlert = formData.sort;
+                    $('#my-confirm').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            switch (this.relatedTarget.sort) {
+                                case '头条热点':
+                                    this.relatedTarget.sort = 'sort1'; break;
+                                case '学院政策':
+                                    this.relatedTarget.sort = 'sort2'; break;
+                                case '学术论文':
+                                    this.relatedTarget.sort = 'sort3'; break;
+                                case '学院竞赛':
+                                    this.relatedTarget.sort = 'sort4'; break;
+                                case '公告栏':
+                                    this.relatedTarget.sort = 'sort5'; break;
+                            }
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/admin_send_news',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $rootScope.articles.splice(num, 1);
+                                    $('#my-popup-success').modal('open');
+                                    clearNum = self.setInterval("autoClose_s()", 1000);
+                                    $rootScope.count2 = $rootScope.count2 - 1;
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+
+                }
+            })
+            .controller('ResEditController', function ($scope, $rootScope, $http, $routeParams, myFactory) {
+                $scope.sorts2 = ["网络安全", "计算机科学与技术", "机械工学", "电子通信工程", "示范基地", "学术交流"];
+                var getObj = myFactory.getter_r();
+                var articles = getObj.articles;
+                $scope.essay = articles[$routeParams.id];
+                $scope.editNum = $routeParams.id;
+                $scope.sendEdit = function (num) {
+                    var formData = $scope.essay;
+                    $rootScope.titleAlert = formData.title;
+                    $rootScope.sortAlert = formData.sort;
+                    $('#my-confirm').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/admin_send_res',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $rootScope.articles_r.splice(num, 1);
+                                    $('#my-popup-success-r').modal('open');
+                                    clearNum = self.setInterval("autoClose_s_r()", 1000);
+                                    $rootScope.count2 = $rootScope.count2 - 1;
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+
+                }
+            })
+            .controller('NewsGetController', function ($scope, $http, $routeParams) {
+                $http.get("/getnewsinfo?id=" + $routeParams.id).success(function (response) {
+                    $scope.essay = response[0];
+                });
+
+            })
+            .controller('ResGetController', function ($scope, $http, $routeParams) {
+                $http.get("/getresinfo?id=" + $routeParams.id).success(function (response) {
+                    $scope.essay = response[0];
+                });
+
+            })
+            .controller('NewsUpdateController', function ($scope, $http, $rootScope, $routeParams) {
+                //html_temp = null;
+                $scope.sorts2 = ["头条热点", "学院政策", "学术论文", "学院竞赛", "公告栏"];
+                $http.get("/getnewsinfo?id=" + $routeParams.id).success(function (response) {
+                    $scope.essay = response[0];
+                    html_temp = response[0].news_body;
+                });
+                $scope.sendNewsUpdated = function () {
+                    var html = ue2.getContent();
+                    $scope.essay.news_body = html;
+                    var formData = $scope.essay
+                    $rootScope.titleAlert = formData.news_title;
+                    $rootScope.sortAlert = formData.news_sort;
+                    $('#my-confirm').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            switch (this.relatedTarget.news_sort) {
+                                case '头条热点':
+                                    this.relatedTarget.news_sort = 'sort1'; break;
+                                case '学院政策':
+                                    this.relatedTarget.news_sort = 'sort2'; break;
+                                case '学术论文':
+                                    this.relatedTarget.news_sort = 'sort3'; break;
+                                case '学院竞赛':
+                                    this.relatedTarget.news_sort = 'sort4'; break;
+                                case '公告栏':
+                                    this.relatedTarget.news_sort = 'sort5'; break;
+                            }
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/admin_update_news_send',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $('#my-popup-success').modal('open');
+                                    clearNum = self.setInterval("autoClose_s()", 1000);
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+                }
+            })
+            .controller('ResUpdateController', function ($scope, $http, $rootScope, $routeParams) {
+                html_temp_r = null;
+                $scope.sorts2 = ["网络安全", "计算机科学与技术", "机械工学", "电子通信工程", "示范基地", "学术交流"];
+                $http.get("/getresinfo?id=" + $routeParams.id).success(function (response) {
+                    $scope.essay = response[0];
+                    html_temp_r = response[0].news_body;
+                });
+                $scope.sendNewsUpdated = function () {
+                    var html = ue3.getContent();
+                    $scope.essay.news_body = html;
+                    var formData = $scope.essay
+                    $rootScope.titleAlert = formData.news_title;
+                    $rootScope.sortAlert = formData.news_sort;
+                    $('#my-confirm').modal({
+                        relatedTarget: formData,
+                        onConfirm: function (options) {
+                            //console.log(formData);
+                            console.log("ajax_send:" + JSON.stringify(this.relatedTarget));
+                            $http({
+                                method: 'POST',
+                                url: '/admin_update_res_send',
+                                data: JSON.stringify(this.relatedTarget),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                            }).error(function (err) {
+                                alert("failed:" + err)
+                            }).success(function (data) {
+                                if (data == null) {
+                                    $('#my-popup-success-r').modal('open');
+                                    clearNum = self.setInterval("autoClose_s_r()", 1000);
+                                }
+                                else {
+                                    $rootScope.err = data;
+                                    $('#my-popup-fail').modal('open');
+                                }
+
+                            });
+                        }
+                    });
+                }
+            })
+            .factory('myFactory', function () {
+                //定义参数对象
+                var myObject = {};
+                myObject.articles = [];
+                //专业成果部分
+                var myObject_r = {};
+                myObject_r.articles = [];
+                var _setter = function (title, source, date, sort, content) {
+                    var data = {};
+                    data.title = title;
+                    data.source = source;
+                    data.date = date;
+                    data.sort = sort;
+                    data.content = content;
+                    myObject.articles.push(data);
+                    //console.log(myObject.articles.length);
+                };
+                var _setter_r = function (title, source, date, sort, content) {
+                    var data = {};
+                    data.title = title;
+                    data.source = source;
+                    data.date = date;
+                    data.sort = sort;
+                    data.content = content;
+                    myObject_r.articles.push(data);
+                    //console.log(myObject.articles.length);
+                };
+
+                var _getter = function () {
+                    return myObject;
+                };
+                var _getter_r = function () {
+                    return myObject_r;
+                };
+
+                // Public APIs
+                // 在controller中通过调setter()和getter()方法可实现提交或获取参数的功能
+                return {
+                    setter: _setter,
+                    setter_r: _setter_r,
+                    getter: _getter,
+                    getter_r: _getter_r
+                };
+            })
+
+            .config(['$routeProvider', function ($routeProvider) {
+                $routeProvider
+                    .when('/', { templateUrl: 'admin_home', controller: 'AppController' })
+                    .when('/add_news', {
+                        templateUrl: 'admin_add_news',
+                        controller: 'NewsController'
+                    })
+                    .when('/view_news', {
+                        templateUrl: 'admin_view_news',
+                        controller: 'NewsViewController'
+                    })
+                    .when('/news_detail/:id', {
+                        templateUrl: 'news_datail.html',
+                        controller: 'NewsDtlController'
+                    })
+                    .when('/res_detail/:id', {
+                        templateUrl: 'res_datail.html',
+                        controller: 'ResDtlController'
+                    })
+                    .when('/news_edit/:id', {
+                        templateUrl: 'admin_edit_news',
+                        controller: 'NewsEditController'
+                    })
+                    .when('/res_edit/:id', {
+                        templateUrl: 'admin_edit_res',
+                        controller: 'ResEditController'
+                    })
+                    .when('/news_get/:id', {
+                        templateUrl: 'admin_get_news.html',
+                        controller: 'NewsGetController'
+                    })
+                    .when('/res_get/:id', {
+                        templateUrl: 'admin_get_res.html',
+                        controller: 'ResGetController'
+                    })
+                    .when('/news_update/:id', {
+                        templateUrl: 'admin_update_news',
+                        controller: 'NewsUpdateController'
+                    })
+                    .when('/res_update/:id', {
+                        templateUrl: 'admin_update_res',
+                        controller: 'ResUpdateController'
+                    })
+                    .when('/add_e', { templateUrl: 'admin_add_e', controller: 'EaddController' })
+                    .when('/view_e', { templateUrl: 'admin_view_e', controller: 'EViewController' })
+                    .when('/add_r', {
+                        templateUrl: 'admin_add_r',
+                        controller: 'ResAddController'
+                    })
+                    .when('/view_r', {
+                        templateUrl: 'admin_view_r',
+                        controller: 'ResViewController'
+                    })
+                    .when('/view_remark', {
+                        templateUrl: 'admin_view_remark',
+                        controller: 'RemarkViewController'
+                    })
+                    .otherwise({ redirectTo: '/' });
+
+            }]);
+
+
+
+
+    </script>
+    <!-- ---查看新闻详情----- -->
+    <script type="text/ng-template" id='news_datail.html'>
+
+	<div class="am-cf am-padding am-padding-bottom-0">
+		<div class="am-fl am-cf">
+			<strong class="am-text-primary am-text-lg">新闻动态</strong><small>&nbsp;>>&nbsp;<a href="#/view_news">待发布</a>&nbsp;>>&nbsp;文章详情</small>
+		</div>
+	</div>
+
+    <hr>
+	<div style =" width: 750px; margin: auto;"class="am-tabs am-margin" data-am-tabs>
+		<ul class="am-tabs-nav am-nav am-nav-tabs">
+		</ul>
+	
+		<p align="center"><b>{{essay.title}}</b></p>
+		<p><b>来源：</b>{{essay.source}}</p>
+		<p><b>日期：</b>{{essay.date}}</p>
+		<p><b>分类：</b>{{essay.sort}}</p>
+		<hr>
+		<div ng-bind-html="essay.content"></div> 
+		<br><br>
+		<div class="am-margin">
+			<input  type="button"  ng-click="send(this_num)" class="am-btn am-btn-primary am-btn-default" value = "发布新闻">
+		</div> 
+	</div>
+</script>
+    <!-- ---查看研究详情----- -->
+    <script type="text/ng-template" id='res_datail.html'>
+
+	<div class="am-cf am-padding am-padding-bottom-0">
+		<div class="am-fl am-cf">
+			<strong class="am-text-primary am-text-lg">专业成果</strong><small>&nbsp;>>&nbsp;<a href="#/view_r">待发布</a>&nbsp;>>&nbsp;文章详情</small>
+		</div>
+	</div>
+
+    <hr>
+	<div style =" width: 750px; margin: auto;"class="am-tabs am-margin" data-am-tabs>
+		<ul class="am-tabs-nav am-nav am-nav-tabs">
+		</ul>
+	
+		<p align="center"><b>{{essay.title}}</b></p>
+		<p><b>来源：</b>{{essay.source}}</p>
+		<p><b>日期：</b>{{essay.date}}</p>
+		<p><b>分类：</b>{{essay.sort}}</p>
+		<hr>
+		<div ng-bind-html="essay.content"></div> 
+		<br><br>
+		<div class="am-margin">
+			<input  type="button"  ng-click="sendres(this_num)" class="am-btn am-btn-primary am-btn-default" value = "发布文章">
+		</div> 
+	</div>
+</script>
+    <!-- ---从服务器获取新闻内容----- -->
+    <script type="text/ng-template" id='admin_get_news.html'>
+
+	<div class="am-cf am-padding am-padding-bottom-0">
+		<div class="am-fl am-cf">
+			<strong class="am-text-primary am-text-lg">新闻动态</strong><small>&nbsp;>>&nbsp;<a href="#/view_news">已发布</a>&nbsp;>>&nbsp;文章详情</small>
+		</div>
+	</div>
+
+    <hr>
+	<div style =" width: 750px; margin: auto;"class="am-tabs am-margin" data-am-tabs>
+		<ul class="am-tabs-nav am-nav am-nav-tabs">
+		</ul>
+	
+		<p align="center"><b>{{essay.news_title}}</b></p>
+		<p><b>来源：</b>{{essay.news_source}}</p>
+		<p><b>日期：</b>{{essay.news_date}}</p>
+		<p><b>分类：</b>{{essay.news_sort}}</p>
+		<hr>
+		<div ng-bind-html="essay.news_body"></div> 
+		<br><br>
+	</div>
+</script>
+    <!-- ---从服务器获取res----- -->
+    <script type="text/ng-template" id='admin_get_res.html'>
+
+	<div class="am-cf am-padding am-padding-bottom-0">
+		<div class="am-fl am-cf">
+			<strong class="am-text-primary am-text-lg">专业成果</strong><small>&nbsp;>>&nbsp;<a href="#/view_r">已发布</a>&nbsp;>>&nbsp;文章详情</small>
+		</div>
+	</div>
+
+    <hr>
+	<div style =" width: 750px; margin: auto;"class="am-tabs am-margin" data-am-tabs>
+		<ul class="am-tabs-nav am-nav am-nav-tabs">
+		</ul>
+	
+		<p align="center"><b>{{essay.news_title}}</b></p>
+		<p><b>来源：</b>{{essay.news_source}}</p>
+		<p><b>日期：</b>{{essay.news_date}}</p>
+		<p><b>分类：</b>{{essay.news_sort}}</p>
+		<hr>
+		<div ng-bind-html="essay.news_body"></div> 
+		<br><br>
+	</div>
+</script>
+</body>
+
+</html>
